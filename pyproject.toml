@@ -18,7 +18,7 @@ classifiers = [
 ]
 keywords = ["MyUpway", "Jäspi", "Nibe", "Heat pump"]
 dependencies = [
-    "requests>=2.31"
+    "requests>=2.31.0"
 ]
 
 [project.urls]

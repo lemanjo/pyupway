@@ -24,7 +24,7 @@ Basic usage is to import MyUpway and MyUpwayConfig from pyupway.
 Initialize MyUpwayConfig with proper settings and use it to initialize MyUpway itself. You can obtain heat pump id from the MyUpway UI URL "https://www.myupway.com/System/<heatpumpId>/Status/Overview"
 
 ```
-from __init__ import MyUpway, MyUpwayConfig, Variable
+from pyupway import MyUpway, MyUpwayConfig, Variable
 
 config = MyUpwayConfig(<username>, <password>, 123456)
 
@@ -113,3 +113,26 @@ from pyupway import VariableHistoryValue
 | CURRENT_COMPRESSOR_FREQUENCY        | 44701       | yes          |
 | REQUESTED_COMPRESSOR_FREQUENCY      | 40782       | no           |
 | VERSION                             | 44014       | no           |
+
+## Functions
+
+### get_current_values
+
+Returns the current values for selected variables.
+Provide variables as a list of Variable enums.
+
+Example
+
+```python
+myupway.get_current_values([Variable.HIGH_PRESSURE_SENSOR, Variable.AVG_OUTDOOR_TEMP])
+```
+
+### get_history_values
+
+Returns the historical values for specified timerange.
+
+Example
+
+```python
+myupway.get_history_values(Variable.EXTERNAL_FLOW_TEMP, startDate=datetime(2023,6,1,0,0,0), stopDate=datetime(2023,6,4,0,0,0))
+```
