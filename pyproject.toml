@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling", "requests"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pyupway"
+version = "0.0.1"
+authors = [
+  { name="Jussi Rosenberg", email="jussi.rosenberg@iki.fi" },
+]
+description = "Read values from MyUpway cloud service"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+keywords = ["MyUpway", "Jäspi", "Nibe", "Heat pump]
+dependencies = [
+    "requests>=2.31"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/lemanjo/pyupway"
