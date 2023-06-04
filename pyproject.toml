@@ -16,7 +16,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-keywords = ["MyUpway", "Jäspi", "Nibe", "Heat pump]
+keywords = ["MyUpway", "Jäspi", "Nibe", "Heat pump"]
 dependencies = [
     "requests>=2.31"
 ]
