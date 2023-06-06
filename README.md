@@ -7,7 +7,8 @@ Simple utility to read values from MyUpway cloud service.
 Currently pyupway has been tested on following units
 
 - MCU40
-- Jäspi Basic Split 12 kW
+- Tehowatti AIR
+- Jäspi Basic Split 8/12 kW
 
 ## Installation
 
@@ -21,12 +22,16 @@ pip install pyupway
 
 Basic usage is to import MyUpway and MyUpwayConfig from pyupway.
 
-Initialize MyUpwayConfig with proper settings and use it to initialize MyUpway itself. You can obtain heat pump id from the MyUpway UI URL "https://www.myupway.com/System/<heatpumpId>/Status/Overview"
+Initialize MyUpwayConfig with proper settings and use it to initialize MyUpway itself. You can obtain heat pump id from the MyUpway UI URL
 
 ```
+https://www.myupway.com/System/<heatpumpId>/Status/Overview
+```
+
+```python
 from pyupway import MyUpway, MyUpwayConfig, Variable
 
-config = MyUpwayConfig(<username>, <password>, 123456)
+config = MyUpwayConfig("<username>", "<password>", 123456)
 
 myupway = MyUpway(config)
 
@@ -70,6 +75,8 @@ from pyupway import VariableHistoryValue
 | Enum Name                           | Variable ID | History Data |
 | ----------------------------------- | ----------- | ------------ |
 | AVG_OUTDOOR_TEMP                    | 40067       | yes          |
+| HOT_WATER_CHARGING                  | 40014       | TBT          |
+| HOT_WATER_TOP                       | 40013       | TBT          |
 | INDOOR_UNIT_OUTDOOR_TEMP            | 40004       | yes          |
 | CURRENT_BE1                         | 40083       | yes          |
 | CURRENT_BE2                         | 40081       | yes          |
@@ -80,11 +87,24 @@ from pyupway import VariableHistoryValue
 | CALCULATED_FLOW_TEMP                | 43009       | yes          |
 | EXTERNAL_FLOW_TEMP                  | 40071       | yes          |
 | EXTERNAL_RETURN_TEMP                | 40152       | yes          |
+| HEAT_MEDIUM_FLOW                    | 40008       | TBT          |
+| HEAT_RETURN_TEMP                    | 40012       | TBT          |
 | ROOM_TEMPERATURE                    | 40033       | yes          |
 | ADDITION_BLOCKED                    | 10033       | no           |
 | ADDITION_MAX_STEP                   | 47613       | no           |
 | ADDITION_STATUS                     | 43091       | yes          |
 | ADDITION_FUSE_SIZE                  | 47214       | no           |
+| ADDITION_TIME_FACTOR                | 43081       | TBT          |
+| ADDITION_ELECTRICAL_ADDITION_POWER  | 43084       | TBT          |
+| ADDITION_SET_MAX_ELECTRICAL_ADD     | 47212       | TBT          |
+| ADDITION_TEMPERATURE                | 40121       | TBT          |
+| ENERGY_COOLING_COMPRESSOR_ONLY      | 44302       | TBT          |
+| ENERGY_HEATING_COMPRESSOR_ONLY      | 44308       | TBT          |
+| ENERGY_HEATING_INT_ADD_INCL         | 44300       | TBT          |
+| ENERGY_HOTWATER_COMPRESSOR_ONLY     | 44306       | TBT          |
+| ENERGY_HW_INCL_INT_ADD              | 44298       | TBT          |
+| ENERGY_POOL_COMPRESSOR_ONLY         | 44304       | TBT          |
+| ENERGY_FLOW                         | 40072       | TBT          |
 | AUX1                                | 47411       | no           |
 | AUX2                                | 47410       | no           |
 | AUX3                                | 47409       | no           |

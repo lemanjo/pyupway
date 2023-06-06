@@ -62,6 +62,8 @@ class Variable(Enum):
     """
 
     AVG_OUTDOOR_TEMP = 40067
+    HOT_WATER_CHARGING = 40014                  # TehoWatti AIR
+    HOT_WATER_TOP = 40013                       # TehoWatti AIR
     INDOOR_UNIT_OUTDOOR_TEMP = 40004
     CURRENT_BE1 = 40083
     CURRENT_BE2 = 40081
@@ -72,11 +74,24 @@ class Variable(Enum):
     CALCULATED_FLOW_TEMP = 43009
     EXTERNAL_FLOW_TEMP = 40071
     EXTERNAL_RETURN_TEMP = 40152
+    HEAT_MEDIUM_FLOW = 40008                    # TehoWatti AIR
+    HEAT_RETURN_TEMP = 40012                    # TehoWatti AIR
     ROOM_TEMPERATURE = 40033
     ADDITION_BLOCKED = 10033
     ADDITION_MAX_STEP = 47613
     ADDITION_STATUS = 43091
     ADDITION_FUSE_SIZE = 47214
+    ADDITION_TIME_FACTOR = 43081                # TehoWatti AIR
+    ADDITION_ELECTRICAL_ADDITION_POWER = 43084  # TehoWatti AIR
+    ADDITION_SET_MAX_ELECTRICAL_ADD = 47212     # TehoWatti AIR
+    ADDITION_TEMPERATURE = 40121                # TehoWatti AIR
+    ENERGY_COOLING_COMPRESSOR_ONLY = 44302      # TehoWatti AIR
+    ENERGY_HEATING_COMPRESSOR_ONLY = 44308      # TehoWatti AIR
+    ENERGY_HEATING_INT_ADD_INCL = 44300         # TehoWatti AIR
+    ENERGY_HOTWATER_COMPRESSOR_ONLY = 44306     # TehoWatti AIR
+    ENERGY_HW_INCL_INT_ADD = 44298              # TehoWatti AIR
+    ENERGY_POOL_COMPRESSOR_ONLY = 44304         # TehoWatti AIR
+    ENERGY_FLOW = 40072                         # TehoWatti AIR
     AUX1 = 47411
     AUX2 = 47410
     AUX3 = 47409
