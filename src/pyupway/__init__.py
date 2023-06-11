@@ -182,7 +182,13 @@ class MyUpway:
         response = self._session.post(url, headers=headers, data=data)
 
         response_data = response.json()
-        response_data['Date'] = datetime.strptime(response_data['Date'], '%m/%d/%Y %H:%M:%S')
+
+        try:
+            # myUpway localization affects the datetime returned by the backend. First try the English format
+            response_data['Date'] = datetime.strptime(response_data['Date'], '%m/%d/%Y %H:%M:%S')
+        except ValueError:
+            # Then the standard european format
+            response_data['Date'] = datetime.strptime(response_data['Date'], '%d.%m.%Y %H.%M.%S')
 
         currentValues = ValueResponseModel(**response_data)
 
