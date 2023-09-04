@@ -133,6 +133,10 @@ class LoginError(Exception):
     pass
 
 
+class NotLoggedIn(Exception):
+    pass
+
+
 class ResponseError(Exception):
     pass
 
@@ -169,7 +173,7 @@ class MyUpway:
         if not '.ASPXAUTH' in self._session.cookies:
             raise LoginError("Login failed.")
 
-    def get_current_values(self, variables: List[Variable] | None = None) -> List[VariableValue]:
+    def get_current_values(self, variables: List[Variable] | None = None, force_login: bool = False) -> List[VariableValue]:
         """
         Returns current values for requested variables provided as list of VariableValue.
         If variables are not specified, function returns all variables.
@@ -188,8 +192,12 @@ class MyUpway:
         for variable in variables:
             data.append(('variables', variable.value))  # type: ignore
 
-        if not '.ASPXAUTH' in self._session.cookies:
+        if not '.ASPXAUTH' in self._session.cookies and force_login:
             self._login()
+
+        if not '.ASPXAUTH' in self._session.cookies:
+            raise NotLoggedIn(
+                "Session is not currenly logged in. Use force_login = True if you want to force relogin.")
 
         response = self._session.post(url, headers=headers, data=data)
 
@@ -252,7 +260,7 @@ class MyUpway:
 
         return results
 
-    def get_history_values(self, variable: Variable, startDate: datetime, stopDate: datetime, resolution: int = 1000) -> List[VariableHistoryValue]:
+    def get_history_values(self, variable: Variable, startDate: datetime, stopDate: datetime, resolution: int = 1000, force_login: bool = False) -> List[VariableHistoryValue]:
         """
         Returns history values for selected variable from specified timerange.
         """
@@ -270,8 +278,12 @@ class MyUpway:
             'reloadOverview': True
         }
 
-        if not '.ASPXAUTH' in self._session.cookies:
+        if not '.ASPXAUTH' in self._session.cookies and force_login:
             self._login()
+
+        if not '.ASPXAUTH' in self._session.cookies:
+            raise NotLoggedIn(
+                "Session is not currenly logged in. Use force_login = True if you want to force relogin.")
 
         response = self._session.post(url, headers=headers, data=data)
 
