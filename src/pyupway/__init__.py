@@ -7,6 +7,7 @@ from datetime import datetime
 import requests
 import re
 
+
 class MyUpwayConfig:
     username: str
     password: str
@@ -17,6 +18,7 @@ class MyUpwayConfig:
         self.password = password
         self.heatpump_id = heatpump_id
 
+
 @dataclass
 class VariableValue:
     Id: int
@@ -25,16 +27,19 @@ class VariableValue:
     Value: int | float | str | bool | None
     Unit: str | None
 
+
 @dataclass
 class VariableHistoryValue:
     Value: int | float | str | bool | None
     Unit: str | None
     Date: datetime
 
+
 @dataclass
 class ValueModel:
     VariableId: int
     CurrentValue: str
+
 
 @dataclass
 class ValueResponseModel:
@@ -43,6 +48,7 @@ class ValueResponseModel:
     Date: datetime
     FuzzyDate: str
     Values: List[ValueModel]
+
 
 @dataclass
 class HistoryResponseModel:
@@ -55,6 +61,7 @@ class HistoryResponseModel:
     reloadoverview: bool
     yaxis: int
     NumberOfDecimals: int
+
 
 class Variable(Enum):
     """
@@ -125,8 +132,10 @@ class Variable(Enum):
 class LoginError(Exception):
     pass
 
+
 class ResponseError(Exception):
     pass
+
 
 class MyUpway:
     _BASE_URL = 'https://www.myupway.com'
@@ -177,26 +186,43 @@ class MyUpway:
             variables = list(Variable)
 
         for variable in variables:
-            data.append(('variables', variable.value)) # type: ignore
+            data.append(('variables', variable.value))  # type: ignore
+
+        if not '.ASPXAUTH' in self._session.cookies:
+            self._login()
 
         response = self._session.post(url, headers=headers, data=data)
 
-        response_data = response.json()
+        if response.status_code != 200:
+            raise requests.exceptions.HTTPError(
+                f"Request failed with status code {response.status_code}, data: {response}")
+
+        try:
+            response_data = response.json()
+        except requests.exceptions.JSONDecodeError:
+            raise ResponseError(
+                f"Cannot parse response data. Data: {response.content}")
 
         if response_data['Date'].count('/'):
-            response_data['Date'] = datetime.strptime(response_data['Date'], "%m/%d/%Y %H:%M:%S")
+            response_data['Date'] = datetime.strptime(
+                response_data['Date'], "%m/%d/%Y %H:%M:%S")
         elif response_data['Date'].count(' ') > 1:
-            response_data['Date'] = datetime.strptime(response_data['Date'], "%Y. %m. %d. %H:%M:%S")
+            response_data['Date'] = datetime.strptime(
+                response_data['Date'], "%Y. %m. %d. %H:%M:%S")
         elif response_data['Date'].count(':'):
             if response_data['Date'].count('-'):
                 if response_data['Date'].find('-') > 3:
-                    response_data['Date'] = datetime.strptime(response_data['Date'], "%Y-%m-%d %H:%M:%S")
+                    response_data['Date'] = datetime.strptime(
+                        response_data['Date'], "%Y-%m-%d %H:%M:%S")
                 else:
-                    response_data['Date'] = datetime.strptime(response_data['Date'], "%d-%m-%Y %H:%M:%S")
+                    response_data['Date'] = datetime.strptime(
+                        response_data['Date'], "%d-%m-%Y %H:%M:%S")
             else:
-                response_data['Date'] = datetime.strptime(response_data['Date'], "%d.%m.%Y %H:%M:%S")
+                response_data['Date'] = datetime.strptime(
+                    response_data['Date'], "%d.%m.%Y %H:%M:%S")
         else:
-            response_data['Date'] = datetime.strptime(response_data['Date'], "%d.%m.%Y %H.%M.%S")
+            response_data['Date'] = datetime.strptime(
+                response_data['Date'], "%d.%m.%Y %H.%M.%S")
 
         currentValues = ValueResponseModel(**response_data)
 
@@ -205,26 +231,28 @@ class MyUpway:
         results = []
 
         for value in currentValues.Values:
-            value = ValueModel(**value) # type: ignore
+            value = ValueModel(**value)  # type: ignore
             id = value.VariableId
             enumerator = Variable(id)
             name = enumerator.name
-            
-            pattern = r'^([\d.]+)(\D*)$'  # Regular expression pattern to match numeric value and unit
+
+            # Regular expression pattern to match numeric value and unit
+            pattern = r'^([\d.]+)(\D*)$'
 
             match = re.match(pattern, value.CurrentValue)
             if match:
                 value = match.group(1)  # Extract the numeric value
                 unit = match.group(2)  # Extract the unit
             else:
-                value = value.CurrentValue  # If no match, consider the entire value as the value itself
+                # If no match, consider the entire value as the value itself
+                value = value.CurrentValue
                 unit = None
-          
+
             results.append(VariableValue(id, name, enumerator, value, unit))
 
         return results
 
-    def get_history_values(self, variable: Variable, startDate: datetime, stopDate:datetime, resolution: int = 1000) -> List[VariableHistoryValue]:
+    def get_history_values(self, variable: Variable, startDate: datetime, stopDate: datetime, resolution: int = 1000) -> List[VariableHistoryValue]:
         """
         Returns history values for selected variable from specified timerange.
         """
@@ -242,9 +270,21 @@ class MyUpway:
             'reloadOverview': True
         }
 
+        if not '.ASPXAUTH' in self._session.cookies:
+            self._login()
+
         response = self._session.post(url, headers=headers, data=data)
 
-        response_data = HistoryResponseModel(**response.json())
+        if response.status_code != 200:
+            raise requests.exceptions.HTTPError(
+                f"Request failed with status code {response.status_code}, data: {response}")
+
+        try:
+            response_data = HistoryResponseModel(**response.json())
+
+        except requests.exceptions.JSONDecodeError:
+            raise ResponseError(
+                f"Cannot parse response data. Data: {response.content}")
 
         results = []
 
@@ -257,6 +297,12 @@ class MyUpway:
             else:
                 history_unit = response_data.unit
 
-            results.append(VariableHistoryValue(history_value, history_unit,history_date))
-        
+            results.append(VariableHistoryValue(
+                history_value, history_unit, history_date))
+
         return results
+
+    def logout(self):
+        url = self._BASE_URL + '/LogOut'
+
+        response = self._session.get(url)
