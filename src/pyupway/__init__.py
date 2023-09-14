@@ -63,6 +63,16 @@ class HistoryResponseModel:
     NumberOfDecimals: int
 
 
+TIME_REPRESENTATION_FORMATS = [
+    "%m/%d/%Y %H:%M:%S",
+    "%Y. %m. %d. %H:%M:%S",
+    "%Y-%m-%d %H:%M:%S",
+    "%d-%m-%Y %H:%M:%S",
+    "%d.%m.%Y %H:%M:%S",
+    "%d.%m.%Y %H.%M.%S"
+]
+
+
 class Variable(Enum):
     """
     Provides Variable name - Variable ID mapping as enum
@@ -211,26 +221,16 @@ class MyUpway:
             raise ResponseError(
                 f"Cannot parse response data. Data: {response.content}")
 
-        if response_data['Date'].count('/'):
-            response_data['Date'] = datetime.strptime(
-                response_data['Date'], "%m/%d/%Y %H:%M:%S")
-        elif response_data['Date'].count(' ') > 1:
-            response_data['Date'] = datetime.strptime(
-                response_data['Date'], "%Y. %m. %d. %H:%M:%S")
-        elif response_data['Date'].count(':'):
-            if response_data['Date'].count('-'):
-                if response_data['Date'].find('-') > 3:
-                    response_data['Date'] = datetime.strptime(
-                        response_data['Date'], "%Y-%m-%d %H:%M:%S")
-                else:
-                    response_data['Date'] = datetime.strptime(
-                        response_data['Date'], "%d-%m-%Y %H:%M:%S")
-            else:
+        for timeformat in TIME_REPRESENTATION_FORMATS:
+            try:
                 response_data['Date'] = datetime.strptime(
-                    response_data['Date'], "%d.%m.%Y %H:%M:%S")
-        else:
-            response_data['Date'] = datetime.strptime(
-                response_data['Date'], "%d.%m.%Y %H.%M.%S")
+                    response_data['Date'], timeformat)
+
+            except ValueError:
+                continue
+
+            else:
+                break
 
         currentValues = ValueResponseModel(**response_data)
 
