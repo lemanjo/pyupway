@@ -6,9 +6,10 @@ Simple utility to read values from MyUpway cloud service.
 
 Currently pyupway has been tested on following units
 
-- MCU40
-- Tehowatti AIR
+- Jäspi MCU40
+- Jäspi Tehowatti AIR
 - Jäspi Basic Split 8/12 kW
+- Nibe Metro-air 330
 
 ## Installation
 
