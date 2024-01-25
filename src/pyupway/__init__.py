@@ -245,12 +245,15 @@ class MyUpway:
             name = enumerator.name
 
             # Regular expression pattern to match numeric value and unit
-            pattern = r'^([\d.]+)(\D*)$'
+            pattern = r'^(-?[\d]+(?:[.,]\d{1,})?)(\D*)$'
 
             match = re.match(pattern, value.CurrentValue)
             if match:
                 value = match.group(1)  # Extract the numeric value
                 unit = match.group(2)  # Extract the unit
+                if unit == "":
+                    unit = None
+
             else:
                 # If no match, consider the entire value as the value itself
                 value = value.CurrentValue
