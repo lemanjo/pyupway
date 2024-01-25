@@ -137,7 +137,9 @@ class Variable(Enum):
     CURRENT_COMPRESSOR_FREQUENCY = 44701
     REQUESTED_COMPRESSOR_FREQUENCY = 40782
     VERSION = 44014
-
+    SMART_PRICE_STATUS = 44908          # Metro-air 330
+    SMART_PRICE_VALUE = 10069             # Metro-air 330
+    SMART_PRICE_FACTOR = 44896          # Metro-air 330
 
 class LoginError(Exception):
     pass
