@@ -134,6 +134,10 @@ from pyupway import VariableHistoryValue
 | CURRENT_COMPRESSOR_FREQUENCY        | 44701       | yes          |
 | REQUESTED_COMPRESSOR_FREQUENCY      | 40782       | no           |
 | VERSION                             | 44014       | no           |
+| SMART_PRICE_STATUS                  | 44908       | ??           |
+| SMART_PRICE_VALUE                   | 10069       | ??           |
+| SMART_PRICE_FACTOR                  | 44896       | ??           |
+
 
 ## Functions
 
