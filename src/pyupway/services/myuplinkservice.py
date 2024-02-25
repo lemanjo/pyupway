@@ -82,6 +82,10 @@ class MyUplinkService:
         results: List[VariableHistoryValue] = []
 
         return results
+    
+    def logout(self):
+        """ No implementation """
+        pass
 
     
     def _get_token(self):

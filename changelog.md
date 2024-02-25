@@ -1,3 +1,11 @@
+# v0.0.9
+
+- FIX: Missing Logout implementation
+
+## Other Stuff
+
+- Read previous releasen notes for 0.0.8
+
 # v0.0.8
 
 - ADD: Integration for MyUplink service
