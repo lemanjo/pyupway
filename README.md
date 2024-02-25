@@ -1,6 +1,8 @@
 # pyupway
 
-Simple utility to read values from MyUpway cloud service.
+Simple utility to read values from either MyUpway or MyUplink cloud service. Currently works only with one system at a time.
+
+When using MyUplink, first visit https://dev.myuplink.com/apps and create new app in order to get the API credentials. Note that History data is not supported with MyUplink service.
 
 ## Supported devices
 
@@ -21,7 +23,9 @@ pip install pyupway
 
 ## Usage
 
-Basic usage is to import MyUpway and MyUpwayConfig from pyupway.
+Basic usage is to import MyUpway, MyUpwayConfig and DataService from pyupway. Then in Config specify which DataService are you using.
+
+### MyUpway
 
 Initialize MyUpwayConfig with proper settings and use it to initialize MyUpway itself. You can obtain heat pump id from the MyUpway UI URL
 
@@ -30,14 +34,35 @@ https://www.myupway.com/System/<heatpumpId>/Status/Overview
 ```
 
 ```python
-from pyupway import MyUpway, MyUpwayConfig, Variable
+from pyupway import MyUpway, MyUpwayConfig, Variable, DataService
 
-config = MyUpwayConfig("<username>", "<password>", 123456)
+config = MyUpwayConfig(dataservice=DataService.MYUPWAY, username="<username>", password="<password>", heatpump_id=123456)
 
 myupway = MyUpway(config)
 
 print(myupway.get_current_values([Variable.HIGH_PRESSURE_SENSOR]))
 print(myupway.get_history_values(Variable.EXTERNAL_FLOW_TEMP, startDate=datetime(2023,6,1,0,0,0), stopDate=datetime(2023,6,4,0,0,0)))
+
+```
+
+### MyUplink
+
+Get Client ID and Client Secret from MyUplink dev site: https://dev.myuplink.com/apps
+
+Initialize MyUpwayConfig with proper settings and use it to initialize MyUpway itself.
+
+```
+https://www.myupway.com/System/<heatpumpId>/Status/Overview
+```
+
+```python
+from pyupway import MyUpway, MyUpwayConfig, Variable, DataService
+
+config = MyUpwayConfig(dataservice=DataService.MYUPLINK, client_id="<client_id>", client_secret="<client_secret>")
+
+myupway = MyUpway(config)
+
+print(myupway.get_current_values([Variable.HIGH_PRESSURE_SENSOR]))
 
 ```
 
@@ -138,7 +163,6 @@ from pyupway import VariableHistoryValue
 | SMART_PRICE_VALUE                   | 10069       | ??           |
 | SMART_PRICE_FACTOR                  | 44896       | ??           |
 
-
 ## Functions
 
 ### get_current_values
@@ -154,7 +178,7 @@ myupway.get_current_values([Variable.HIGH_PRESSURE_SENSOR, Variable.AVG_OUTDOOR_
 
 ### get_history_values
 
-Returns the historical values for specified timerange.
+Returns the historical values for specified timerange. NOT IMPLEMENTED FOR MYUPLINK!
 
 Example
 

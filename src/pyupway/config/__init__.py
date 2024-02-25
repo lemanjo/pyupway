@@ -1,0 +1,1 @@
+from .myupwayconfig import MyUpwayConfig

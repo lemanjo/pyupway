@@ -1,0 +1,117 @@
+import requests
+
+from typing import List
+from datetime import datetime
+
+from ..config import MyUpwayConfig
+from ..exceptions import LoginErr
+from ..enums import Variable
+from ..models import VariableValue, VariableHistoryValue
+
+class MyUplinkService:
+    _BASE_URL = 'https://api.myuplink.com'
+    
+    _config: MyUpwayConfig
+    _session: requests.Session
+    _token: str
+    _device_id: str
+
+    isOnline: bool
+
+    def __init__(self, config: MyUpwayConfig) -> None:
+        self._config = config
+        self._session = requests.Session()
+
+        self.login()
+    
+    def login(self):
+        self._get_token()
+    
+        response = self._session.get(self._BASE_URL + '/v2/systems/me?page=1&itemsPerPage=10')
+        response_data = response.json()
+
+        self._device_id = response_data['systems'][0]['devices'][0]['id']
+
+    def get_current_values(self, variables: List[Variable] | None = None, force_login: bool = False) -> List[VariableValue]:
+        """
+        Returns current values for requested variables provided as list of VariableValue.
+        If variables are not specified, function returns all variables.
+        """
+
+        params = {}
+
+        if variables:
+            params = {
+                "parameters": ','.join(str(variable.value) for variable in variables)
+            }
+        
+        response = self._session.get(self._BASE_URL + '/v2/devices/' + self._device_id + '/points', params=params)
+
+        if response.status_code == 401:
+            self._get_token()
+
+            response = self._session.get(self._BASE_URL + '/v2/devices/' + self._device_id + '/points', params=params)
+
+        elif response.status_code != 200:
+            raise Exception(f"Failed to get values. API responded with status code {response.status_code}")
+
+        response_data = response.json()
+
+        results: List[VariableValue] = []
+
+        for result in response_data:
+            variableEnum = Variable(int(result["parameterId"]))
+            variable_value = VariableValue(
+                Id=variableEnum.value,
+                Name=variableEnum.name,
+                Value=result["value"],
+                Unit=result["parameterUnit"],
+                Enumerator=variableEnum
+            )
+
+            if not self._contains_variable_value_with_id(results, variable_value.Id):
+                results.append(variable_value)
+        
+        return results
+
+    def get_history_values(self, variable: Variable, startDate: datetime, stopDate: datetime, resolution: int = 1000, force_login: bool = False) -> List[VariableHistoryValue]:
+        """
+        No way to implement in new API.
+        """
+
+        results: List[VariableHistoryValue] = []
+
+        return results
+
+    
+    def _get_token(self):
+        """
+        Fetch new token from OAUTH
+        """
+        
+        # Define token request parameters
+        token_params = {
+            'grant_type': 'client_credentials',  # or other grant type depending on your OAuth flow
+            'client_id': self._config.client_id,
+            'client_secret': self._config.client_secret,
+            # additional parameters if needed
+        }
+
+        # Make a POST request to the token endpoint
+        response = requests.post(self._BASE_URL+'/oauth/token', data=token_params)
+
+        # Check if the request was successful (status code 200)
+        if response.status_code == 200:
+            # Extract the token from the response
+            token_data = response.json()
+            access_token = "Bearer "+token_data['access_token']
+            self._token = access_token
+            self._session.headers.update({'Authorization': access_token})
+        else:
+            raise LoginErr("Cannot fetch MyUplink token")
+    
+    def _contains_variable_value_with_id(self, variable_values, Id):
+        for var_value in variable_values:
+            if var_value.Id == Id:
+                return True
+        return False
