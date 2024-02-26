@@ -96,6 +96,13 @@ from pyupway import VariableHistoryValue
 | Unit  | str &#124; None                                     |
 | Date  | datetime                                            |
 
+## Data Services
+
+| **Value** | **Meaning**                         |
+| --------- | ----------------------------------- |
+| MYUPWAY   | Download data from MyUpway service  |
+| MYUPLINK  | Download data from MyUplink service |
+
 ## Variables available
 
 | Enum Name                           | Variable ID | History Data |
