@@ -1,3 +1,4 @@
+from __future__ import annotations
 from typing import Optional
 from ..enums import DataService
 from ..exceptions import ConfigurationError

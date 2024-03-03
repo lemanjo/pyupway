@@ -1,3 +1,7 @@
+# v0.0.11
+
+- FIX: More old python version fixes
+
 # v0.0.10
 
 - FIX: Support for Python version 3.8 & 3.9
