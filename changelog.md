@@ -1,3 +1,7 @@
+# v0.0.10
+
+- FIX: Support for Python version 3.8 & 3.9
+
 # v0.0.9
 
 - FIX: Missing Logout implementation
