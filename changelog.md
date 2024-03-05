@@ -1,3 +1,7 @@
+# v0.0.13
+
+- FIX: Unknown enum handling
+
 # v0.0.12
 
 - FIX: Import order

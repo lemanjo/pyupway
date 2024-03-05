@@ -62,7 +62,11 @@ class MyUplinkService:
         results: List[VariableValue] = []
 
         for result in response_data:
-            variableEnum = Variable(int(result["parameterId"]))
+            try:
+                variableEnum = Variable(int(result["parameterId"]))
+            except ValueError:
+                print(f"ERROR: Missing Variable enum. Contact the maintainer (https://github.com/lemanjo/pyupway) to add it to the code with these details: {result}")
+                continue
             variable_value = VariableValue(
                 Id=variableEnum.value,
                 Name=variableEnum.name,
