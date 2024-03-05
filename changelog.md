@@ -1,3 +1,7 @@
+# v0.0.12
+
+- FIX: Import order
+
 # v0.0.11
 
 - FIX: More old python version fixes
