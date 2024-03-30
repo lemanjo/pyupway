@@ -82,3 +82,18 @@ class Variable(Enum):
     PRIORITY = 49994
     PUMP_HEATING_MEDIUM = 49995
     TEMPORARY_LUX = 50004
+    COMPRESSOR_EVAPORATOR_TEMP = 40020          # NIBE F470
+    COMPRESSOR_TEMP = 40023                     # NIBE F470
+    ADDITION_IMMERSION_HEATER_TEMP = 40024      # NIBE F470
+    AIR_EXHAUST_TEMP = 40025                    # NIBE F470
+    AIR_EXTRACT_TEMP = 40026                    # NIBE F470
+    SMART_PRICE_MODE = 41929                    # NIBE F470  # ENUM: 0=unknown, 1=low, 2=normal, 3=high
+    DESIRED_HUMIDITY_1 = 42770                  # NIBE F470
+    DEFROSTING_TIME = 43066                     # NIBE F470
+    FAN_MODE = 43108                            # NIBE F470
+    COMPRESSOR_STATUS = 43427                   # NIBE F470  # ENUM: 20=off, 40=starts, 60=runs, 80=stops
+    SMART_PRICE_POOL_OFFSET = 44898             # NIBE F470
+    SMART_PRICE_COOLING_OFFSET = 44899          # NIBE F470
+    OPERATING_MODE = 47137                      # NIBE F470  # ENUM: 0=auto, 1=manual, 2=addition_only
+    DESIRED_HUMIDITY_2 = 49633                  # NIBE F470
+    AIR_INCREASED_VENTILATION = 50005           # NIBE F470  # ENUM: 0=off, 1=on

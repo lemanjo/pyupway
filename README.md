@@ -12,6 +12,7 @@ Currently pyupway has been tested on following units
 - Jäspi Tehowatti AIR
 - Jäspi Basic Split 8/12 kW
 - Nibe Metro-air 330
+- Nibe F470
 
 ## Installation
 
@@ -169,6 +170,21 @@ from pyupway import VariableHistoryValue
 | SMART_PRICE_STATUS                  | 44908       | ??           |
 | SMART_PRICE_VALUE                   | 10069       | ??           |
 | SMART_PRICE_FACTOR                  | 44896       | ??           |
+| COMPRESSOR_EVAPORATOR_TEMP          | 40020       |              |
+| COMPRESSOR_TEMP                     | 40023       |              |
+| ADDITION_IMMERSION_HEATER_TEMP      | 40024       |              |
+| AIR_EXHAUST_TEMP                    | 40025       |              |
+| AIR_EXTRACT_TEMP                    | 40026       |              |
+| SMART_PRICE_MODE                    | 41929       |              |
+| DESIRED_HUMIDITY_1                  | 42770       |              |
+| DEFROSTING_TIME                     | 43066       |              |
+| FAN_MODE                            | 43108       |              |
+| COMPRESSOR_STATUS                   | 43427       |              |
+| SMART_PRICE_POOL_OFFSET             | 44898       |              |
+| SMART_PRICE_COOLING_OFFSET          | 44899       |              |
+| OPERATING_MODE                      | 47137       |              |
+| DESIRED_HUMIDITY_2                  | 49633       |              |
+| AIR_INCREASED_VENTILATION           | 50005       |              |
 
 ## Functions
 
