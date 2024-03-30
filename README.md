@@ -12,6 +12,7 @@ Currently pyupway has been tested on following units
 - Jäspi Tehowatti AIR
 - Jäspi Basic Split 8/12 kW
 - Nibe Metro-air 330
+- Nibe F470
 
 ## Installation
 
