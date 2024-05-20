@@ -32,7 +32,10 @@ class MyUplinkService:
         response = self._session.get(self._BASE_URL + '/v2/systems/me?page=1&itemsPerPage=10')
         response_data = response.json()
 
-        self._device_id = response_data['systems'][0]['devices'][0]['id']
+        device_data = response_data['systems'][0]['devices'][0]
+
+        self._device_id = device_data['id']
+        self.isOnline = device_data['connectionState'] == "Connected"
 
     def get_current_values(self, variables: List[Variable] | None = None, force_login: bool = False) -> List[VariableValue]:
         """
