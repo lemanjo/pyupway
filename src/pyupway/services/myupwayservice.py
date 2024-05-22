@@ -21,6 +21,7 @@ TIME_REPRESENTATION_FORMATS = [
     "%d.%m.%Y %H.%M.%S"
 ]
 
+
 class MyUpwayService:
     _BASE_URL = 'https://www.myupway.com'
 
@@ -74,7 +75,7 @@ class MyUpwayService:
             data.append(('variables', variable.value))  # type: ignore
 
         if not '.ASPXAUTH' in self._session.cookies and force_login:
-            self._login()
+            self.login()
 
         if not '.ASPXAUTH' in self._session.cookies:
             raise NotLoggedIn(
@@ -153,7 +154,7 @@ class MyUpwayService:
         }
 
         if not '.ASPXAUTH' in self._session.cookies and force_login:
-            self._login()
+            self.login()
 
         if not '.ASPXAUTH' in self._session.cookies:
             raise NotLoggedIn(
