@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Variable(Enum):
     """
     Provides Variable name - Variable ID mapping as enum
@@ -80,20 +81,23 @@ class Variable(Enum):
     PUMP_HEATING_MEDIUM = 49992
     INT_ELEC_ADD_HEAT = 49993
     PRIORITY = 49994
-    PUMP_HEATING_MEDIUM = 49995
+    PUMP_HEATING_MEDIUM_2 = 49995
     TEMPORARY_LUX = 50004
     COMPRESSOR_EVAPORATOR_TEMP = 40020          # NIBE F470
     COMPRESSOR_TEMP = 40023                     # NIBE F470
     ADDITION_IMMERSION_HEATER_TEMP = 40024      # NIBE F470
     AIR_EXHAUST_TEMP = 40025                    # NIBE F470
     AIR_EXTRACT_TEMP = 40026                    # NIBE F470
-    SMART_PRICE_MODE = 41929                    # NIBE F470  # ENUM: 0=unknown, 1=low, 2=normal, 3=high
+    # NIBE F470  # ENUM: 0=unknown, 1=low, 2=normal, 3=high
+    SMART_PRICE_MODE = 41929
     DESIRED_HUMIDITY_1 = 42770                  # NIBE F470
     DEFROSTING_TIME = 43066                     # NIBE F470
     FAN_MODE = 43108                            # NIBE F470
-    COMPRESSOR_STATUS = 43427                   # NIBE F470  # ENUM: 20=off, 40=starts, 60=runs, 80=stops
+    # NIBE F470  # ENUM: 20=off, 40=starts, 60=runs, 80=stops
+    COMPRESSOR_STATUS = 43427
     SMART_PRICE_POOL_OFFSET = 44898             # NIBE F470
     SMART_PRICE_COOLING_OFFSET = 44899          # NIBE F470
-    OPERATING_MODE = 47137                      # NIBE F470  # ENUM: 0=auto, 1=manual, 2=addition_only
+    # NIBE F470  # ENUM: 0=auto, 1=manual, 2=addition_only
+    OPERATING_MODE = 47137
     DESIRED_HUMIDITY_2 = 49633                  # NIBE F470
     AIR_INCREASED_VENTILATION = 50005           # NIBE F470  # ENUM: 0=off, 1=on
