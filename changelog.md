@@ -1,5 +1,12 @@
 # v0.0.13
 
+- FIX: Duplicated variable PUMP_HEATING_MEDIUM
+- FIX: isOnline state not updating
+- FIX: MyUpway Service calling old login method
+- ADD: New variables for Nibe
+
+# v0.0.13
+
 - FIX: Unknown enum handling
 
 # v0.0.12
