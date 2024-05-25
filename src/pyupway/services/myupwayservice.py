@@ -23,7 +23,8 @@ TIME_REPRESENTATION_FORMATS = [
 
 
 class MyUpwayService:
-    _BASE_URL = 'https://www.myupway.com'
+    _DOMAIN = 'myupway.com'
+    _BASE_URL = f'https://www.{_DOMAIN}'
 
     _config: MyUpwayConfig
     _session: requests.Session
@@ -33,6 +34,8 @@ class MyUpwayService:
     def __init__(self, config: MyUpwayConfig) -> None:
         self._config = config
         self._session = requests.Session()
+        # Set language to en to be able to get boolean values right
+        self._session.cookies.set("EmilLanguage", "en-GB", domain=self._DOMAIN)
 
         self.login()
 
