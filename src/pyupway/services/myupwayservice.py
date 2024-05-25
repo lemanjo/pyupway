@@ -55,6 +55,8 @@ class MyUpwayService:
         if not '.ASPXAUTH' in self._session.cookies:
             raise LoginErr("Login failed.")
 
+        self.get_current_values() # perform request to set the isOnline flag
+
     def get_current_values(self, variables: List[Variable] | None = None, force_login: bool = False) -> List[VariableValue]:
         """
         Returns current values for requested variables provided as list of VariableValue.
