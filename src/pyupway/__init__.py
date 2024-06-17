@@ -11,6 +11,7 @@ from .services import MyUpwayService, MyUplinkService
 class MyUpway:
     _config: MyUpwayConfig
 
+    deviceId: str
     isOnline: bool
 
     def __init__(self, config: MyUpwayConfig) -> None:
@@ -23,6 +24,7 @@ class MyUpway:
 
         self._service.login()
 
+        self.deviceId = self._service.deviceId
         self.isOnline = self._service.isOnline
 
     def login(self):

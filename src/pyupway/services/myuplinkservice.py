@@ -16,8 +16,8 @@ class MyUplinkService:
     _config: MyUpwayConfig
     _session: requests.Session
     _token: str
-    _device_id: str
 
+    deviceId: str
     isOnline: bool
 
     def __init__(self, config: MyUpwayConfig) -> None:
@@ -34,7 +34,7 @@ class MyUplinkService:
 
         device_data = response_data['systems'][0]['devices'][0]
 
-        self._device_id = device_data['id']
+        self.deviceId = device_data['id']
         self.isOnline = device_data['connectionState'] == "Connected"
 
     def get_current_values(self, variables: List[Variable] | None = None, force_login: bool = False) -> List[VariableValue]:
@@ -50,12 +50,12 @@ class MyUplinkService:
                 "parameters": ','.join(str(variable.value) for variable in variables)
             }
         
-        response = self._session.get(self._BASE_URL + '/v2/devices/' + self._device_id + '/points', params=params)
+        response = self._session.get(self._BASE_URL + '/v2/devices/' + self.deviceId + '/points', params=params)
 
         if response.status_code == 401:
             self._get_token()
 
-            response = self._session.get(self._BASE_URL + '/v2/devices/' + self._device_id + '/points', params=params)
+            response = self._session.get(self._BASE_URL + '/v2/devices/' + self.deviceId + '/points', params=params)
 
         elif response.status_code != 200:
             raise Exception(f"Failed to get values. API responded with status code {response.status_code}")
