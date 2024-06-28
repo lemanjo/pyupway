@@ -208,3 +208,7 @@ Example
 ```python
 myupway.get_history_values(Variable.EXTERNAL_FLOW_TEMP, startDate=datetime(2023,6,1,0,0,0), stopDate=datetime(2023,6,4,0,0,0))
 ```
+# Contributors
+Thank you for contributing to the project!
+- lobstaj
+- sulate
