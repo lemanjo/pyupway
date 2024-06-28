@@ -1,4 +1,11 @@
-# v0.0.13
+# v0.0.15
+
+- ADD: Fetch MyUpway boolean values in English
+- ADD: Retrieve and provide device id
+- FIX: Login failed with MyUpwayService
+- PROJECT: Implement GitHub Actions for pypi publish
+
+# v0.0.14
 
 - FIX: Duplicated variable PUMP_HEATING_MEDIUM
 - FIX: isOnline state not updating
