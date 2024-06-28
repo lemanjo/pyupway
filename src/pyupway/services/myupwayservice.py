@@ -29,6 +29,7 @@ class MyUpwayService:
     _config: MyUpwayConfig
     _session: requests.Session
 
+    deviceId: str
     isOnline: bool
 
     def __init__(self, config: MyUpwayConfig) -> None:
@@ -36,6 +37,8 @@ class MyUpwayService:
         self._session = requests.Session()
         # Set language to en to be able to get boolean values right
         self._session.cookies.set("EmilLanguage", "en-GB", domain=self._DOMAIN)
+
+        self.deviceId = self._config.heatpump_id
 
         self.login()
 
