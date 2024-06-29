@@ -37,6 +37,7 @@ class Variable(Enum):
     ENERGY_HW_INCL_INT_ADD = 44298              # TehoWatti AIR
     ENERGY_POOL_COMPRESSOR_ONLY = 44304         # TehoWatti AIR
     ENERGY_FLOW = 40072                         # TehoWatti AIR
+    INVERTER_STATUS = 50096
     AUX1 = 47411
     AUX2 = 47410
     AUX3 = 47409
