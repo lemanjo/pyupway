@@ -9,3 +9,4 @@ class VariableValue:
     Enumerator: Variable
     Value: int | float | str | bool | None
     Unit: str | None
+    EnumValue: str | None
