@@ -24,3 +24,7 @@ dependencies = [
 [project.urls]
 "Homepage" = "https://github.com/lemanjo/pyupway"
 "Changelog" = "https://github.com/lemanjo/pyupway/blob/master/changelog.md"
+
+[tool.poetry.dependencies]
+pytest = "^7.2"
+coverage = "^7.3"
