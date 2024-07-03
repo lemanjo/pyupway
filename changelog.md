@@ -1,3 +1,6 @@
+# v0.0.16
+- ADD: enum interpretation and misc variables by @lobstaj in https://github.com/lemanjo/pyupway/pull/7
+
 # v0.0.15
 
 - ADD: Fetch MyUpway boolean values in English
