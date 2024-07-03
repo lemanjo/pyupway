@@ -70,11 +70,22 @@ class MyUplinkService:
             except ValueError:
                 print(f"ERROR: Missing Variable enum. Contact the maintainer (https://github.com/lemanjo/pyupway) to add it to the code with these details: {result}")
                 continue
+
+            raw_value = result["value"]
+            # JSON does not distinguish between int and float, so python always outputs float. But enum
+            # interpretation needs to be able to access the value as an int if it is one.
+            value = int(raw_value) if raw_value.is_integer() else raw_value
+            str_value = str(value)
+
+            found_enum = [el for el in result["enumValues"] if str(el["value"]) == str_value]
+            enum_value = found_enum[0]["text"] if len(found_enum) > 0 and "text" in found_enum[0] else str_value
+
             variable_value = VariableValue(
                 Id=variableEnum.value,
                 Name=variableEnum.name,
-                Value=result["value"],
+                Value=raw_value,
                 Unit=result["parameterUnit"],
+                EnumValue=enum_value,
                 Enumerator=variableEnum
             )
 
