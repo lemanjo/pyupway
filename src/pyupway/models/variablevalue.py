@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from ..enums import Variable
+from datetime import datetime
 
 @dataclass
 class VariableValue:
@@ -10,3 +11,4 @@ class VariableValue:
     Value: int | float | str | bool | None
     Unit: str | None
     EnumValue: str | None
+    UpdatedAt: datetime | None

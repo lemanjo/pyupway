@@ -86,7 +86,8 @@ class MyUplinkService:
                 Value=raw_value,
                 Unit=result["parameterUnit"],
                 EnumValue=enum_value,
-                Enumerator=variableEnum
+                Enumerator=variableEnum,
+                UpdatedAt=datetime.fromisoformat(result["timestamp"])
             )
 
             if not self._contains_variable_value_with_id(results, variable_value.Id):
