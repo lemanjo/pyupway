@@ -83,10 +83,10 @@ class MyUplinkService:
             variable_value = VariableValue(
                 Id=variableEnum.value,
                 Name=variableEnum.name,
+                Enumerator=variableEnum,
                 Value=raw_value,
                 Unit=result["parameterUnit"],
                 EnumValue=enum_value,
-                Enumerator=variableEnum,
                 UpdatedAt=datetime.fromisoformat(result["timestamp"])
             )
 
