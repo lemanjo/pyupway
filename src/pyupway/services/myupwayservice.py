@@ -139,7 +139,15 @@ class MyUpwayService:
                 value = value.CurrentValue
                 unit = None
 
-            results.append(VariableValue(id, name, enumerator, value, unit))
+            results.append(VariableValue(
+                Id=id,
+                Name=name,
+                Enumerator=enumerator,
+                Value=value,
+                Unit=unit,
+                EnumValue=None,
+                UpdatedAt=None
+            ))
 
         return results
 
