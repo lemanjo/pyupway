@@ -84,6 +84,7 @@ from pyupway import VariableValue
 | Enumerator | Variable                                            |
 | Value      | int &#124; float &#124; str &#124; bool &#124; None |
 | Unit       | str &#124; None                                     |
+| updatedAt  | datetime &#124; None                                |
 
 #### VariableHistoryValue
 
