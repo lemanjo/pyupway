@@ -84,7 +84,8 @@ from pyupway import VariableValue
 | Enumerator | Variable                                            |
 | Value      | int &#124; float &#124; str &#124; bool &#124; None |
 | Unit       | str &#124; None                                     |
-| updatedAt  | datetime &#124; None                                |
+| EnumValue  | str &#124; None                                     |
+| UpdatedAt  | datetime &#124; None                                |
 
 #### VariableHistoryValue
 
@@ -140,6 +141,7 @@ from pyupway import VariableHistoryValue
 | ENERGY_HW_INCL_INT_ADD              | 44298       | TBT          |
 | ENERGY_POOL_COMPRESSOR_ONLY         | 44304       | TBT          |
 | ENERGY_FLOW                         | 40072       | TBT          |
+| INVERTER_STATUS                     | 50096       | ??           |
 | AUX1                                | 47411       | no           |
 | AUX2                                | 47410       | no           |
 | AUX3                                | 47409       | no           |
@@ -161,6 +163,7 @@ from pyupway import VariableHistoryValue
 | RETURN_TEMP                         | 44055       | yes          |
 | SUCTION_GAS                         | 44061       | yes          |
 | HIGH_PRESSURE_SENSOR                | 44699       | yes          |
+| HIGH_PRESSURE_SENSOR_EB101          | 41163       | ??           |
 | LOW_PRESSURE_SENSOR                 | 44700       | yes          |
 | COMPRESSOR_OPERATING_TIME           | 44071       | yes          |
 | COMPRESSOR_OPERATING_TIME_HOT_WATER | 44073       | yes          |
@@ -171,6 +174,22 @@ from pyupway import VariableHistoryValue
 | SMART_PRICE_STATUS                  | 44908       | ??           |
 | SMART_PRICE_VALUE                   | 10069       | ??           |
 | SMART_PRICE_FACTOR                  | 44896       | ??           |
+| SUPPLY_LINE                         | 40047       | ??           |
+| RETURN_LINE                         | 40048       | ??           |
+| OIL_TEMPERATURE_EP15_BT29           | 40145       | ??           |
+| OIL_TEMPERATURE_BT29                | 40146       | ??           |
+| MYUPLINK_DEGREE_MINUTES             | 40940       | ??           |
+| SLAVE_EB101                         | 44032       | ??           |
+| STATUS_COMPRESSOR_EB101             | 44064       | ??           |
+| CHARGE_PUMP_EB101_GP12              | 49996       | ??           |
+| CURRENT_HOT_WATER_MODE              | 43109       | ??           |
+| HOT_WATER_CHARGE_SET_POINT_VALUE    | 43115       | ??           |
+| PUMP_HEATING_MEDIUM                 | 49992       | ??           |
+| INT_ELEC_ADD_HEAT                   | 49993       | ??           |
+| PRIORITY                            | 49994       | ??           |
+| PUMP_HEATING_MEDIUM_2               | 49995       | ??           |
+| TEMPORARY_LUX                       | 50004       | ??           |
+| COMFORT_MODE                        | 47041       | ??           |
 | COMPRESSOR_EVAPORATOR_TEMP          | 40020       |              |
 | COMPRESSOR_TEMP                     | 40023       |              |
 | ADDITION_IMMERSION_HEATER_TEMP      | 40024       |              |
